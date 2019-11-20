@@ -1,10 +1,9 @@
 //insert an interval into sorted non-overlapping list of intervals. Merge if necessary
 // Find where it belongs. 
-// if new.low limit > pos.high limit, then pos++
-// if new.high < curr.low, then pos--
+// if new.high < curr.low, then insert to its left 
 // else, new.low <= pos.high || new.high >= curr.low would also make it a merge
 //when you merge, pick the lowest low and the highest high. 
-//if new.low is lower, then will maybe have to merge to the left. If new.high is higher will maybe have to merge to the right
+//If new.high is higher will maybe have to merge with next interval to the right
 
 /**
  * Definition for an interval.
