@@ -24,7 +24,8 @@ public class Solution {
           if(interval.end < newInterval.start){
               res.add(interval); //this is before newInterval
           }else if(newInterval.end <  interval.start){
-            //insert in the left. check if gotta merge to the left
+            //insert in the left. You don't have to check if merge to the left bc you already passed the previous item. You didnt merge and the item already on the list doesn't either. 
+              //already sorted non-overlapping. Remember?
               res.add(newInterval); 
               newInterval = interval; //I know newInterval doesn't overlap, but maybe interval will??
            }else if(newInterval.start > intervals.end){
