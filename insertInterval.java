@@ -15,29 +15,36 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
+
+//**** LEET CODE IS DOWN. CHECK WHEN BACK UP
 public class Solution {
     public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
  
         ArrayList<Interval> res = new ArrayList<Interval>();
         //loop through intervals 
         for(Interval interval : intervals){
-          if(interval.end < newInterval.start){
-              res.add(interval); //this is before newInterval
+          if(newInterval == null || interval.end < newInterval.start){
+              res.add(interval); //interval is fully BEFORE newInterval
           }else if(newInterval.end <  interval.start){
-            //insert in the left. You don't have to check if merge to the left bc you already passed the previous item. You didnt merge and the item already on the list doesn't either. 
+            //insert newInterval to the left of interval. You don't have to check if merge to the left bc you already passed the previous item. You didnt merge and the item already on the list doesn't either. 
               //already sorted non-overlapping. Remember?
               res.add(newInterval); 
-              newInterval = interval; //I know newInterval doesn't overlap, but maybe interval will??
-           }else if(newInterval.start > intervals.end){
-            //insert to the right. check if merge to the right
+              newInterval = null; // we wanna add the rest of the list as normal
+              res.add(interval); //also add interval
+           }else if(newInterval.start > interval.end){
+            //insert to the right. 
               res.add(interval);
-              res.add(newInterval);
+              res.add(newInterval); //check if merge to the right. keep newInterval label as is. 
           }else{
-            //merge. if newInterval.start is lower, merge to the left. If newInterval.high is higher, merge to the right
-              res.add(new Interval(Math.min(newInterval.start, interval.start), Math.max(newInterval.end,interval.end));
-              
-            }
+            //merge. If newInterval.high is higher than interval, MAY need to merge with the next interval, too.
+             newInterval.start = Math.min(newInterval.start, interval.start);
+             newInterval.end = Math.max(newInterval.end, interval.end);                             
+          }
          }
+        if(newInterval != null){
+            res.add(newInterval);
+        }
+        return res;
      }
 }
             
